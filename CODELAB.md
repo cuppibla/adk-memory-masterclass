@@ -24,7 +24,7 @@ alive and one that's a goldfish (or one that's needlessly over-engineered).
 In this masterclass you'll build **Sage**, a meal-planning assistant, and climb the whole
 hierarchy one rung at a time with Google's **Agent Development Kit (ADK)**.
 
-![The Memory Hierarchy — eight rungs from a forgetful goldfish to managed cloud memory](assets/felt/hierarchy.png)
+![Your Memory Roadmap — eight rungs across two notebooks, from a forgetful goldfish to managed cloud memory](assets/felt/roadmap.png)
 
 ### What you'll learn
 
@@ -36,6 +36,13 @@ hierarchy one rung at a time with Google's **Agent Development Kit (ADK)**.
 - **Context management** — compaction, rewind, caching for long chats.
 - **Durability** — pausing and resuming long-running work.
 - Taking it to **managed cloud** (Vertex sessions + Memory Bank) with zero code changes.
+
+### The whole system
+
+Every rung is the *same* Sage — one agent, one Runner — with a different memory backend wired
+in. Here's the architecture you're assembling, piece by piece:
+
+![How Sage Remembers — one Runner wires SessionService, MemoryService, and ArtifactService; the same code runs local, on a database, or managed in the cloud](assets/felt/arch.png)
 
 ### How this codelab works
 
@@ -66,6 +73,8 @@ Now you're ready to climb.
 ## L0 · The goldfish 🐟
 Duration: 5:00
 
+![Roadmap — you are here: L0, the goldfish](assets/felt/roadmap-L0.png)
+
 The default agent is a **goldfish**. Sage here runs on an `InMemorySessionService` — all state
 lives in RAM for one session. Within a single chat it's fine, but open a **new session** and
 it has forgotten you completely.
@@ -81,6 +90,8 @@ Chat B — a brand-new session — draw a total blank:
 
 ## L1 · The scratchpad — session.state 📝
 Duration: 6:00
+
+![Roadmap — you are here: L1, the scratchpad](assets/felt/roadmap-L1.png)
 
 The simplest memory is a **scratchpad that lives for one conversation**. When Sage learns
 something, its `note_preference` tool writes to `session.state`; later turns in that same chat
@@ -101,6 +112,8 @@ again. We need to *persist* and *scope* that state. → L2
 
 ## L2 · Remember across restarts — DatabaseSessionService + user: scope 💾
 Duration: 8:00
+
+![Roadmap — you are here: L2, remember across restarts](assets/felt/roadmap-L2.png)
 
 Two ideas at once:
 
@@ -124,6 +137,8 @@ set*. What about *what happened*? → L3
 
 ## L3 · Persistence ≠ memory 🧠
 Duration: 8:00
+
+![Roadmap — you are here: L3, persistence is not memory](assets/felt/roadmap-L3.png)
 
 Here's the sentence to tattoo on your brain: **persistence is not memory.**
 
@@ -150,6 +165,8 @@ mushroom risotto; this week, in a brand-new session, Sage recalls it and suggest
 
 ## L4 · Remembering files — artifacts 📎
 Duration: 6:00
+
+![Roadmap — you are here: L4, remembering files](assets/felt/roadmap-L4.png)
 
 State and memory hold text. **Artifacts** hold *files* — a saved meal plan, a shopping-list
 PDF, an image. Sage saves a plan as a `user:`-scoped artifact and re-opens it later.
@@ -181,6 +198,8 @@ Run its **⚙️ Setup** and **🌿 Sage base** cells (same as before), then con
 ## L5 · Working memory — compaction, rewind & caching 🗜️↩️
 Duration: 8:00
 
+![Roadmap — you are here: L5, working memory](assets/felt/roadmap-L5.png)
+
 The context window is Sage's **short-term working memory**. On a long chat it grows, gets
 expensive, and drifts. Three tools keep it healthy:
 
@@ -197,6 +216,8 @@ undone: *mushroom soup → (rewind) → lentil curry.*
 
 ## L6 · Surviving time — durability ⏳
 Duration: 7:00
+
+![Roadmap — you are here: L6, surviving time](assets/felt/roadmap-L6.png)
 
 Some memory has to survive *time* — a task that pauses for a human or an external event and
 resumes later. Sage's grocery order is a **`LongRunningFunctionTool`**: it returns *pending*,
@@ -218,6 +239,8 @@ resumes on confirmation → *"the order is placed."*
 ## L7 · Managed in the cloud — Vertex sessions + Memory Bank ☁️
 Duration: 6:00
 
+![Roadmap — you are here: L7, managed in the cloud (the finish line)](assets/felt/roadmap-L7.png)
+
 The payoff of the whole hierarchy: **the Sage code doesn't change to go to production — only
 the services swap.**
 
@@ -235,6 +258,8 @@ steps; with a project set, the same Sage runs on managed Vertex services.
 
 ## Recap
 Duration: 3:00
+
+![Your Memory Roadmap — the full climb, L0 to L7, complete](assets/felt/roadmap.png)
 
 You climbed the whole Memory Hierarchy:
 

@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@600;700;800&family=Space+Mono:wght@400;700&display=swap');
+
+:root{
+  --cream:#F6EDDD; --cream2:#EFE2CD; --ink:#3A2E25; --muted:#8A7A69;
+  --line:#D8C4A8; --card:#FCF7EE;
+  --clay:#D48A5C; --clay-b:#B15E37;      /* terracotta — the accent / "you are here" */
+  --sage:#9DBF8E; --sage-b:#6E9160;      /* green — Sage / remembering */
+  --honey:#E9C46A; --honey-b:#C1912F;    /* gold — files / artifacts */
+  --walnut:#B39377; --walnut-b:#7A5A44;  /* brown — sessions / structure */
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:'Nunito',system-ui,sans-serif;color:var(--ink)}
+
+/* each diagram is a 1280x720 slide; :target shows one full-screen for a clean PNG export */
+.slide{
+  display:none; width:1280px; height:720px; padding:54px 62px;
+  background:
+    radial-gradient(1200px 720px at 76% -12%, #FFF7E9 0%, transparent 62%),
+    var(--cream);
+  position:relative; flex-direction:column;
+}
+.slide:target{display:flex}
+body:not(:has(.slide:target)) #roadmap{display:flex}
+
+/* felt fibre grain */
+.slide::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/><feColorMatrix type='matrix' values='0 0 0 0 0.55  0 0 0 0 0.44  0 0 0 0 0.32  0 0 0 0.05 0'/></filter><rect width='120' height='120' filter='url(%23n)'/></svg>");}
+
+.head{display:flex;align-items:center;gap:16px;margin-bottom:6px;z-index:2}
+.head .bug{width:70px;height:70px;display:flex;align-items:center;justify-content:center;font-size:52px;
+  filter:drop-shadow(0 6px 9px rgba(120,90,50,.25))}
+.eyebrow{font-family:'Space Mono',monospace;font-size:14px;letter-spacing:.14em;color:var(--clay-b);text-transform:uppercase;font-weight:700}
+h1{font-family:'Fredoka',sans-serif;font-weight:700;font-size:38px;margin:0;line-height:1.05}
+.sub{font-size:17px;color:var(--muted);margin:2px 0 0;font-weight:700}
+.body{flex:1;display:flex;align-items:center;justify-content:center;z-index:2}
+
+/* node cards */
+.node{background:var(--card);border:2.5px solid var(--line);border-radius:18px;
+  padding:14px 20px;text-align:center;box-shadow:0 8px 0 rgba(120,90,50,.08),0 10px 20px rgba(120,90,50,.10);
+  min-width:150px}
+.node .t{font-family:'Space Mono',monospace;font-weight:700;font-size:17px}
+.node .k{font-size:12.5px;color:var(--muted);font-weight:700;margin-top:3px}
+.node.walnut{border-color:var(--walnut);background:#F1E7DA}
+.node.sage{border-color:var(--sage);background:#EEF4E8}
+.node.honey{border-color:var(--honey);background:#FBF3DC}
+.node.clay{border-color:var(--clay);background:#FBEADF}
+.node.ink{border-color:#C9BBA6;background:#fff}
+.node.sm{min-width:120px;padding:10px 14px}
+.node.sm .t{font-size:15px}
+.node .swap{font-family:'Space Mono',monospace;font-size:11.5px;color:var(--muted);margin-top:6px;font-weight:700}
+.pill{display:inline-block;font-family:'Space Mono',monospace;font-size:12px;font-weight:700;
+  color:#fff;padding:3px 11px;border-radius:999px;margin-bottom:8px}
+.pill.walnut{background:var(--walnut-b)} .pill.sage{background:var(--sage-b)}
+.pill.honey{background:var(--honey-b)} .pill.clay{background:var(--clay-b)}
+
+.row{display:flex;align-items:center;gap:24px}
+.col{display:flex;flex-direction:column;gap:16px}
+.arrow{color:var(--clay-b);font-size:30px;font-weight:900;line-height:1}
+.arrow .cap,.arrow small{display:block;font-family:'Space Mono',monospace;font-size:11px;color:var(--muted);font-weight:700;margin-top:2px}
+.stack{display:flex;flex-direction:column;gap:12px;padding:16px;border:2.5px dashed var(--line);
+  border-radius:22px;background:rgba(255,255,255,.5)}
+.stack .cap{font-family:'Space Mono',monospace;font-size:12px;color:var(--muted);text-align:center;font-weight:700;letter-spacing:.06em}
+
+/* ADK brand lockup (top-right) */
+.brand{position:absolute;top:38px;right:50px;display:flex;align-items:center;gap:11px;z-index:5;
+  background:#fff;border:2.5px solid var(--line);border-radius:999px;padding:8px 22px 8px 13px;
+  box-shadow:0 6px 16px rgba(120,90,50,.16)}
+.brand img{width:44px;height:44px}
+.brand span{font-family:'Fredoka',sans-serif;font-weight:700;font-size:23px;color:var(--ink)}
+.brand b{font-weight:700;background:linear-gradient(90deg,#4285F4,#34A853 52%,#EA4335);
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* ROADMAP — two lanes (one per notebook), label on the LEFT */
+.lanes{display:flex;flex-direction:column;gap:22px;width:100%;max-width:1140px;margin:0 auto}
+.lane{display:flex;align-items:center;gap:24px;border-radius:26px;padding:22px 30px}
+.lane.a{background:#EDF4E7} .lane.b{background:#F8E9DD}
+.lane-lab{flex:0 0 186px;font-family:'Fredoka',sans-serif;font-weight:700;font-size:17px;color:#fff;
+  padding:14px 12px;border-radius:16px;text-align:center;line-height:1.2}
+.lane-lab small{display:block;font-family:'Space Mono',monospace;font-size:11px;font-weight:700;opacity:.9;margin-top:3px;letter-spacing:.04em}
+.lane.a .lane-lab{background:var(--sage-b)} .lane.b .lane-lab{background:var(--clay-b)}
+.stops{display:flex;align-items:center;gap:14px}
+.stop{display:flex;flex-direction:column;align-items:center;gap:8px;width:96px;position:relative}
+.dot{width:62px;height:62px;border-radius:50%;background:#fff;border:3px solid var(--line);
+  display:flex;align-items:center;justify-content:center;font-family:'Fredoka';font-weight:700;font-size:20px;color:var(--muted);
+  box-shadow:0 6px 0 rgba(120,90,50,.08)}
+.stop .lab{font-size:13px;color:var(--muted);font-weight:800;text-align:center;line-height:1.15}
+.stop.done .dot{background:var(--sage);border-color:var(--sage-b);color:#fff}
+.stop.done .lab{color:var(--sage-b)}
+.stop.now .dot{background:var(--clay);border-color:var(--clay-b);color:#fff;transform:scale(1.22);
+  box-shadow:0 0 0 6px rgba(212,138,92,.26),0 10px 16px rgba(120,90,50,.2)}
+.stop.now .lab{color:var(--clay-b)}
+.stop.now::before{content:"🌿 you are here";position:absolute;top:-33px;white-space:nowrap;
+  font-family:'Space Mono',monospace;font-size:11.5px;font-weight:700;color:#fff;background:var(--clay-b);
+  padding:4px 10px;border-radius:999px}
+.connector{width:22px;height:3px;background:var(--line);border-radius:2px;margin-top:31px}
+.lane-fill{margin-left:6px;font-family:'Space Mono',monospace;font-size:13px;color:var(--muted);font-weight:700;max-width:340px;line-height:1.5}
+.lane-fill b{color:var(--clay-b)}
+
+.legend{position:absolute;bottom:24px;left:62px;display:flex;gap:18px;font-size:13px;color:var(--muted);font-weight:700;z-index:3}
+.legend b{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:5px;vertical-align:-1px}
+.note{font-family:'Space Mono',monospace;font-size:13px;color:var(--muted);margin-top:14px;text-align:center}
+.strip{display:flex;align-items:center;gap:10px;justify-content:center;margin-top:6px;flex-wrap:wrap}
+.chip{font-family:'Nunito',sans-serif;font-weight:800;font-size:13.5px;background:#fff;
+  border:2px solid var(--clay);border-radius:999px;padding:6px 13px;color:var(--clay-b)}
+.chip.q{border-color:var(--walnut)}
+.striplab{font-family:'Space Mono',monospace;font-size:12px;color:var(--muted);font-weight:700}
+</style>
+</head>
+<body>
+
+<!-- ============ ROADMAP (you-are-here) ============ -->
+<section class="slide" id="roadmap">
+  <div class="brand"><img src="./adk-logo.png" alt="ADK"><span>ADK · <b>Memory</b></span></div>
+  <div class="head">
+    <div class="bug">🌿</div>
+    <div><div class="eyebrow">Memory Masterclass · with Sage</div>
+      <h1>Your Memory Roadmap</h1>
+      <p class="sub">eight rungs · from a forgetful goldfish to managed cloud memory</p></div>
+  </div>
+  <div class="body">
+    <div class="lanes">
+      <div class="lane a">
+        <div class="lane-lab">Part 1<br>Remembering<small>notebook 1</small></div>
+        <div class="stops">
+          <div class="stop"><div class="dot">L0</div><div class="lab">Goldfish</div></div>
+          <div class="connector"></div>
+          <div class="stop"><div class="dot">L1</div><div class="lab">Scratchpad</div></div>
+          <div class="connector"></div>
+          <div class="stop"><div class="dot">L2</div><div class="lab">Across Restarts</div></div>
+          <div class="connector"></div>
+          <div class="stop"><div class="dot">L3</div><div class="lab">Real Memory</div></div>
+          <div class="connector"></div>
+          <div class="stop"><div class="dot">L4</div><div class="lab">Files</div></div>
+        </div>
+      </div>
+      <div class="lane b">
+        <div class="lane-lab">Part 2<br>Managing<small>notebook 2</small></div>
+        <div class="stops">
+          <div class="stop"><div class="dot">L5</div><div class="lab">Working Memory</div></div>
+          <div class="connector"></div>
+          <div class="stop"><div class="dot">L6</div><div class="lab">Surviving Time</div></div>
+          <div class="connector"></div>
+          <div class="stop"><div class="dot">🏁</div><div class="lab">L7 · Managed Cloud</div></div>
+        </div>
+        <div class="lane-fill">the memory you built in Part 1 — now <b>compacted, resumable, and run at scale</b>.</div>
+      </div>
+    </div>
+  </div>
+  <div class="legend"><span><b style="background:var(--sage)"></b>done</span><span><b style="background:var(--clay)"></b>you are here</span><span><b style="background:#fff;border:2px solid var(--line)"></b>up next</span></div>
+</section>
+
+<!-- ============ ARCHITECTURE ============ -->
+<section class="slide" id="arch">
+  <div class="brand"><img src="./adk-logo.png" alt="ADK"><span>ADK · <b>Memory</b></span></div>
+  <div class="head"><div class="bug">🌿</div>
+    <div><div class="eyebrow">One agent · swappable memory backends</div><h1>How Sage Remembers — Architecture</h1>
+    <p class="sub">one Runner wires three services · same code, local → database → cloud</p></div></div>
+  <div class="body">
+    <div class="col" style="gap:16px;align-items:center">
+      <div class="row" style="gap:18px">
+        <div class="node ink"><div class="t">you</div><div class="k">"I'm vegetarian, no mushrooms"</div></div>
+        <div class="arrow">↔</div>
+        <div class="node clay"><div class="t">Sage · Agent</div><div class="k">gemini-3-flash · note_preference · suggest_meal</div></div>
+      </div>
+      <div class="arrow" style="font-size:24px">↓<span class="cap">the Runner drives every turn</span></div>
+      <div class="node walnut" style="min-width:300px"><div class="t">Runner</div><div class="k">session · events · state · tool context</div></div>
+      <div class="arrow" style="font-size:24px">↓<span class="cap">wired to three pluggable services</span></div>
+      <div class="row" style="gap:26px;align-items:stretch">
+        <div class="col" style="gap:8px;align-items:center"><span class="pill walnut">the WHERE · sessions</span>
+          <div class="node walnut"><div class="t">SessionService</div><div class="k">the conversation + session.state</div>
+            <div class="swap">InMemory → Database → Vertex</div></div>
+          <div class="node walnut sm" style="min-width:210px"><div class="k">scopes: <b>temp:</b> · <b>user:</b> · <b>app:</b></div></div></div>
+        <div class="col" style="gap:8px;align-items:center"><span class="pill sage">the WHAT · long-term</span>
+          <div class="node sage"><div class="t">MemoryService</div><div class="k">searchable recall of past sessions</div>
+            <div class="swap">InMemory → Vertex Memory Bank</div></div>
+          <div class="node sage sm" style="min-width:210px"><div class="k">add_session_to_memory · search_memory</div></div></div>
+        <div class="col" style="gap:8px;align-items:center"><span class="pill honey">the FILES · artifacts</span>
+          <div class="node honey"><div class="t">ArtifactService</div><div class="k">binary blobs — plans, PDFs, images</div>
+            <div class="swap">InMemory → GCS</div></div>
+          <div class="node honey sm" style="min-width:210px"><div class="k">save_artifact · load_artifact</div></div></div>
+      </div>
+      <div class="strip"><span class="striplab">Runner-level knobs →</span>
+        <span class="chip q">compaction</span><span class="chip q">rewind</span><span class="chip q">resumability</span><span class="chip q">context cache</span></div>
+      <div class="note">google-adk 2.3.0 · gemini-3-flash · persistence is not memory — pick the service you actually need</div>
+    </div>
+  </div>
+</section>
+
+<script>
+// Per-step roadmap: ?step=N marks stops 0..N-1 done, stop N "you are here".
+(function(){
+  var p = new URLSearchParams(location.search);
+  if(!p.has('step')) return;
+  var idx = parseInt(p.get('step'), 10);
+  var stops = document.querySelectorAll('#roadmap .stop');
+  stops.forEach(function(el, i){
+    el.classList.remove('done','now');
+    if(i < idx) el.classList.add('done');
+    else if(i === idx) el.classList.add('now');
+  });
+})();
+</script>
+</body>
+</html>

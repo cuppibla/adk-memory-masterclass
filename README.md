@@ -9,7 +9,7 @@ the **Memory Hierarchy**, through a single meal-planning assistant, **Sage**.
 > **The one idea:** *"persistence is not memory."* An agent's memory isn't one thing — it's a
 > stack of very different mechanisms. This masterclass teaches you which rung to reach for.
 
-![The Memory Hierarchy — from a forgetful goldfish (L0) to managed cloud memory (L7)](assets/felt/hierarchy.png)
+![Your Memory Roadmap — eight rungs across two notebooks, from a forgetful goldfish to managed cloud memory](assets/felt/roadmap.png)
 
 ## Three ways to take it
 
@@ -37,6 +37,13 @@ throughout — one assistant, **Sage** — so the rungs accumulate.
 
 **The through-line:** *forgets everything → remembers this chat → remembers you → knows you →
 keeps your files → manages a long memory → survives time → managed.*
+
+## How Sage remembers
+
+One agent, one Runner, three swappable services — the same code runs local, on a database, or
+fully managed in the cloud.
+
+![How Sage Remembers — one Runner wires SessionService, MemoryService, and ArtifactService; local to cloud](assets/felt/arch.png)
 
 ## Quickstart (local)
 
