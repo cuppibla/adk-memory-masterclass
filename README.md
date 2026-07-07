@@ -1,3 +1,5 @@
+![Sage, a felt meal-planning assistant, welcoming you beside its shelf of memory jars](assets/felt/hero.png)
+
 # 🌿 The ADK Memory Masterclass
 
 Give your AI agent a **memory**. This is an advanced, hands-on tour of the whole memory / state /
@@ -6,6 +8,8 @@ the **Memory Hierarchy**, through a single meal-planning assistant, **Sage**.
 
 > **The one idea:** *"persistence is not memory."* An agent's memory isn't one thing — it's a
 > stack of very different mechanisms. This masterclass teaches you which rung to reach for.
+
+![The Memory Hierarchy — from a forgetful goldfish (L0) to managed cloud memory (L7)](assets/felt/hierarchy.png)
 
 ## Three ways to take it
 

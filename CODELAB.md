@@ -11,6 +11,8 @@ feedback link: https://github.com/cuppibla/adk-memory-masterclass/issues
 ## Overview
 Duration: 3:00
 
+![Sage, a felt meal-planning assistant, welcoming you beside its shelf of memory jars](assets/felt/hero.png)
+
 Ask an AI agent for dinner ideas on Monday — *"I'm vegetarian, no mushrooms"* — and come
 back Wednesday. Most agents greet you like a stranger. They have no memory.
 
@@ -21,6 +23,8 @@ alive and one that's a goldfish (or one that's needlessly over-engineered).
 
 In this masterclass you'll build **Sage**, a meal-planning assistant, and climb the whole
 hierarchy one rung at a time with Google's **Agent Development Kit (ADK)**.
+
+![The Memory Hierarchy — eight rungs from a forgetful goldfish to managed cloud memory](assets/felt/hierarchy.png)
 
 ### What you'll learn
 
