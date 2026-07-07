@@ -1,0 +1,17 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+sage-memory-masterclass/
+
+# Secrets & local artifacts (never commit)
+.env
+*.db
+fake_systems.json
+.ipynb_checkpoints/
