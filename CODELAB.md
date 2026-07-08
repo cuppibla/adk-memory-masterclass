@@ -24,8 +24,6 @@ alive and one that's a goldfish (or one that's needlessly over-engineered).
 In this masterclass you'll build **Sage**, a meal-planning assistant, and climb the whole
 hierarchy one rung at a time with Google's **Agent Development Kit (ADK)**.
 
-![Your Memory Roadmap — eight rungs across two notebooks, from a forgetful goldfish to managed cloud memory](assets/felt/roadmap.png)
-
 ### What you'll learn
 
 - The **Memory Hierarchy** and the one line that unlocks it: **"persistence is not memory."**

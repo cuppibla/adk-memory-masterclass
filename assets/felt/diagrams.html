@@ -109,9 +109,67 @@ h1{font-family:'Fredoka',sans-serif;font-weight:700;font-size:38px;margin:0;line
   border:2px solid var(--clay);border-radius:999px;padding:6px 13px;color:var(--clay-b)}
 .chip.q{border-color:var(--walnut)}
 .striplab{font-family:'Space Mono',monospace;font-size:12px;color:var(--muted);font-weight:700}
+
+/* HERO — title card that carries the roadmap */
+#hero{height:790px;padding:50px 62px}
+.hero-head{display:flex;align-items:center;gap:28px;z-index:2;margin-bottom:6px}
+.portrait{width:154px;height:154px;border-radius:32px;overflow:hidden;flex:0 0 auto;
+  border:5px solid #fff;background:var(--cream2);box-shadow:0 12px 26px rgba(120,90,50,.22)}
+.portrait img{width:100%;height:100%;object-fit:cover;transform:scale(1.34);transform-origin:center 60%}
+.hero-title h1{font-size:52px;line-height:1.0;margin-top:3px}
+.hero-title .sub{font-size:19px;max-width:840px;margin-top:7px}
+.hero-title .sub b{color:var(--clay-b)}
+.hero-road{flex:1;display:flex;align-items:center;justify-content:center;z-index:2}
+.hero-road .lanes{gap:20px}
+.hero-tag{position:absolute;left:62px;bottom:26px;z-index:3;font-family:'Space Mono',monospace;
+  font-size:13.5px;color:var(--muted);font-weight:700}
+.hero-tag b{color:var(--clay-b)}
 </style>
 </head>
 <body>
+
+<!-- ============ HERO (title card + roadmap) ============ -->
+<section class="slide" id="hero">
+  <div class="brand"><img src="./adk-logo.png" alt="ADK"><span>ADK · <b>Memory</b></span></div>
+  <div class="hero-head">
+    <div class="portrait"><img src="./sage.png" alt="Sage"></div>
+    <div class="hero-title">
+      <div class="eyebrow">Memory Masterclass · with Sage 🌿</div>
+      <h1>The ADK Memory Masterclass</h1>
+      <p class="sub"><b>Persistence is not memory.</b> Give your agent a memory — climb all eight rungs, from a forgetful goldfish to managed cloud memory.</p>
+    </div>
+  </div>
+  <div class="hero-road">
+    <div class="lanes">
+      <div class="lane a">
+        <div class="lane-lab">Part 1<br>Remembering<small>notebook 1</small></div>
+        <div class="stops">
+          <div class="stop"><div class="dot">L0</div><div class="lab">Goldfish</div></div>
+          <div class="connector"></div>
+          <div class="stop"><div class="dot">L1</div><div class="lab">Scratchpad</div></div>
+          <div class="connector"></div>
+          <div class="stop"><div class="dot">L2</div><div class="lab">Across Restarts</div></div>
+          <div class="connector"></div>
+          <div class="stop"><div class="dot">L3</div><div class="lab">Real Memory</div></div>
+          <div class="connector"></div>
+          <div class="stop"><div class="dot">L4</div><div class="lab">Files</div></div>
+        </div>
+      </div>
+      <div class="lane b">
+        <div class="lane-lab">Part 2<br>Managing<small>notebook 2</small></div>
+        <div class="stops">
+          <div class="stop"><div class="dot">L5</div><div class="lab">Working Memory</div></div>
+          <div class="connector"></div>
+          <div class="stop"><div class="dot">L6</div><div class="lab">Surviving Time</div></div>
+          <div class="connector"></div>
+          <div class="stop"><div class="dot">🏁</div><div class="lab">L7 · Managed Cloud</div></div>
+        </div>
+        <div class="lane-fill">the memory you build in Part 1 — now <b>compacted, resumable, and run at scale</b>.</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-tag">google-adk 2.3.0 · gemini-3-flash · one assistant, <b>eight rungs of memory</b></div>
+</section>
 
 <!-- ============ ROADMAP (you-are-here) ============ -->
 <section class="slide" id="roadmap">

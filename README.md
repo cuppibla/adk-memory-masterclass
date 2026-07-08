@@ -9,8 +9,6 @@ the **Memory Hierarchy**, through a single meal-planning assistant, **Sage**.
 > **The one idea:** *"persistence is not memory."* An agent's memory isn't one thing — it's a
 > stack of very different mechanisms. This masterclass teaches you which rung to reach for.
 
-![Your Memory Roadmap — eight rungs across two notebooks, from a forgetful goldfish to managed cloud memory](assets/felt/roadmap.png)
-
 ## Three ways to take it
 
 - **📖 Codelab (guided):** the step-by-step walkthrough (`CODELAB.md`) — best start-to-finish.
