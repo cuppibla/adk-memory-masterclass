@@ -21,37 +21,48 @@ def code(t):
 
 
 SETUP_MD = '''
-### ⚙️ Setup — your Gemini API key
+### ⚙️ Setup — add your Gemini API key
 
-This masterclass runs on the **Gemini API** with a free **Google AI Studio** key.
+This masterclass runs on the **Gemini API** with a free **Google AI Studio** key — get one at
+**[aistudio.google.com/apikey](https://aistudio.google.com/apikey)** (it's free and usually
+starts with `AIza…`). The Setup cell below loads it **two ways — pick whichever you prefer:**
 
-1. Get a key at **[aistudio.google.com/apikey](https://aistudio.google.com/apikey)** — it's free and usually starts with `AIza…`.
-2. **Recommended — Colab Secrets:** click the **🔑** icon in the left sidebar → **＋ Add new secret**, name it exactly `GOOGLE_API_KEY`, paste your key as the value, and turn **Notebook access** *on*. The cell below finds it automatically.
-3. **No Secret?** Just run the cell — it will prompt you to paste the key (it isn't saved).
+- **Option A · Colab Secrets** *(recommended — the key stays hidden).* Click the **🔑** icon in
+  the left sidebar → **＋ Add new secret**, name it exactly `GOOGLE_API_KEY`, paste your key as
+  the value, and turn **Notebook access** *on*. → prints `✅ API key loaded from Colab Secrets.`
+- **Option B · Paste when prompted** *(quick & easy).* Skip Secrets and just run the cell — it
+  shows a box to paste your key (it isn't saved). → prints `✅ API key entered manually.`
 
-> 🔒 Treat the key like a password — don't paste it into shared docs or commit it to git.
+> 🔒 Treat the key like a password. ⚠️ Wait for the `✅` confirmation before moving on.
 '''
 
 SETUP = '''
-# @title ⚙️ Setup — install ADK and load your Gemini (AI Studio) API key  { display-mode: "form" }
-# Key from https://aistudio.google.com/apikey  ·  add it to Colab Secrets as GOOGLE_API_KEY.
+# @title ⚙️ Setup — install ADK and add your Gemini (AI Studio) API key  { display-mode: "form" }
+# Free key from https://aistudio.google.com/apikey  ·  add it to Colab Secrets as GOOGLE_API_KEY.
 !pip install -q "google-adk[db]==2.3.0" aiosqlite greenlet
 import os
-try:
-    from google.colab import userdata                 # Colab Secrets (recommended)
-    os.environ["GOOGLE_API_KEY"] = userdata.get("GOOGLE_API_KEY")
-except Exception:
-    if not os.environ.get("GOOGLE_API_KEY"):           # else fall back to a prompt
-        import getpass
-        os.environ["GOOGLE_API_KEY"] = getpass.getpass("Paste your Gemini API key (AIza…): ")
+os.environ["GOOGLE_GENAI_USE_VERTEXAI"] = "False"     # use the Gemini API (AI Studio), not Vertex AI
 
-# This masterclass talks to the Gemini API (AI Studio), not Vertex AI.
-os.environ["GOOGLE_GENAI_USE_VERTEXAI"] = "False"
+loaded_from = None
+try:
+    from google.colab import userdata                     # Option A — Colab Secrets (recommended)
+    os.environ["GOOGLE_API_KEY"] = userdata.get("GOOGLE_API_KEY")
+    loaded_from = "secrets"
+except Exception:
+    if os.environ.get("GOOGLE_API_KEY"):                   # already set in the environment
+        loaded_from = "env"
+    else:                                                  # Option B — paste when prompted
+        import getpass
+        os.environ["GOOGLE_API_KEY"] = getpass.getpass("🔑 Enter your Google AI Studio API key: ")
+        loaded_from = "manual"
 
 key = os.environ.get("GOOGLE_API_KEY", "")
 assert key, "No GOOGLE_API_KEY found — add it to Colab Secrets (🔑) or paste it when prompted."
 if len(key) < 20:
     print("⚠️  That key looks too short — make sure you pasted the whole thing.")
+print({"secrets": "✅ API key loaded from Colab Secrets.",
+       "manual":  "✅ API key entered manually.",
+       "env":     "✅ API key loaded from the environment."}[loaded_from])
 print("✅ Ready — Sage is using the Gemini API (AI Studio).")
 '''
 
