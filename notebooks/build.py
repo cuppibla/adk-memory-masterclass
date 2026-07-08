@@ -20,18 +20,39 @@ def code(t):
     return nbf.v4.new_code_cell(t.strip("\n"))
 
 
+SETUP_MD = '''
+### ⚙️ Setup — your Gemini API key
+
+This masterclass runs on the **Gemini API** with a free **Google AI Studio** key.
+
+1. Get a key at **[aistudio.google.com/apikey](https://aistudio.google.com/apikey)** — it's free and usually starts with `AIza…`.
+2. **Recommended — Colab Secrets:** click the **🔑** icon in the left sidebar → **＋ Add new secret**, name it exactly `GOOGLE_API_KEY`, paste your key as the value, and turn **Notebook access** *on*. The cell below finds it automatically.
+3. **No Secret?** Just run the cell — it will prompt you to paste the key (it isn't saved).
+
+> 🔒 Treat the key like a password — don't paste it into shared docs or commit it to git.
+'''
+
 SETUP = '''
-# @title ⚙️ Setup — install ADK and add your Gemini API key  { display-mode: "form" }
+# @title ⚙️ Setup — install ADK and load your Gemini (AI Studio) API key  { display-mode: "form" }
+# Key from https://aistudio.google.com/apikey  ·  add it to Colab Secrets as GOOGLE_API_KEY.
 !pip install -q "google-adk[db]==2.3.0" aiosqlite greenlet
 import os
 try:
-    from google.colab import userdata          # Colab Secrets (recommended)
+    from google.colab import userdata                 # Colab Secrets (recommended)
     os.environ["GOOGLE_API_KEY"] = userdata.get("GOOGLE_API_KEY")
 except Exception:
-    import getpass
-    os.environ["GOOGLE_API_KEY"] = getpass.getpass("Enter your Gemini API key: ")
+    if not os.environ.get("GOOGLE_API_KEY"):           # else fall back to a prompt
+        import getpass
+        os.environ["GOOGLE_API_KEY"] = getpass.getpass("Paste your Gemini API key (AIza…): ")
+
+# This masterclass talks to the Gemini API (AI Studio), not Vertex AI.
 os.environ["GOOGLE_GENAI_USE_VERTEXAI"] = "False"
-print("✅ ready")
+
+key = os.environ.get("GOOGLE_API_KEY", "")
+assert key, "No GOOGLE_API_KEY found — add it to Colab Secrets (🔑) or paste it when prompted."
+if len(key) < 20:
+    print("⚠️  That key looks too short — make sure you pasted the whole thing.")
+print("✅ Ready — Sage is using the Gemini API (AI Studio).")
 '''
 
 SHARED = '''
@@ -431,7 +452,7 @@ RECAP = r'''
 
 
 def build(title, levels, out):
-    cells = [md(title), md("### ⚙️ Setup"), code(SETUP),
+    cells = [md(title), md(SETUP_MD), code(SETUP),
              md("### 🌿 The shared Sage base (run this once)"), code(SHARED)]
     for name, intro, body in levels:
         c = code(body)

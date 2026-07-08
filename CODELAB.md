@@ -56,15 +56,31 @@ Prefer to clone and edit? Everything's on GitHub too:
 ## Setup
 Duration: 3:00
 
-👉 **Open Notebook 1:**
-[Sage · Part 1 — Remembering](https://colab.research.google.com/drive/1V7I1LHZk_IxcvKkEdTKFkwC35OBNK-cp)
+You'll need a free **Gemini API key** from **Google AI Studio** — the same key powers both
+notebooks, and everything below runs with no cloud project or billing.
 
-👉 In the notebook, run the **⚙️ Setup** cell. It installs ADK and asks for a **Gemini API
-key** (get one at [aistudio.google.com/apikey](https://aistudio.google.com/apikey); in Colab,
-store it in **Secrets** as `GOOGLE_API_KEY`).
+### 1 · Get your API key
 
-👉 Then run the **🌿 shared Sage base** cell once — it defines Sage's tools and a tiny
-`say()` helper the rest of the notebook uses.
+👉 Open **[aistudio.google.com/apikey](https://aistudio.google.com/apikey)**, sign in with a
+Google account, and click **Create API key**. It's free and usually starts with `AIza…`.
+
+> 🔒 Treat the key like a password — don't paste it into shared docs or commit it to git.
+
+### 2 · Open Notebook 1 and add your key
+
+👉 Open **[Sage · Part 1 — Remembering](https://colab.research.google.com/drive/1V7I1LHZk_IxcvKkEdTKFkwC35OBNK-cp)**.
+
+- **Option A — Colab Secrets (recommended).** Click the **🔑** icon in the left sidebar →
+  **Add new secret**. Name it exactly `GOOGLE_API_KEY`, paste your key as the value, and turn
+  **Notebook access ON**. The Setup cell picks it up automatically.
+- **Option B — paste when prompted.** Skip Secrets and the Setup cell shows a box to paste your
+  key (it isn't saved).
+
+### 3 · Run the first two cells
+
+👉 Run the **⚙️ Setup** cell — it installs ADK, loads your key, and points Sage at the Gemini
+API (`GOOGLE_GENAI_USE_VERTEXAI=False`). Then run the **🌿 shared Sage base** cell once — it
+defines Sage's tools and a tiny `say()` helper the rest of the notebook uses.
 
 Now you're ready to climb.
 

@@ -50,11 +50,13 @@ git clone https://github.com/cuppibla/adk-memory-masterclass.git
 cd adk-memory-masterclass
 ./setup_venv.sh            # Windows: setup_venv.bat   (or: uv sync)
 source .venv/bin/activate
-# put your Gemini API key in .env  (see .env.example)
+cp .env.example .env       # then paste your key into GOOGLE_API_KEY
 python -m L0_goldfish.demo
 ```
 
-Get a Gemini API key at [aistudio.google.com/apikey](https://aistudio.google.com/apikey).
+Get a free **Gemini API key** from **Google AI Studio** at
+[aistudio.google.com/apikey](https://aistudio.google.com/apikey), then drop it into `.env` as
+`GOOGLE_API_KEY` (with `GOOGLE_GENAI_USE_VERTEXAI=FALSE`). Treat it like a password.
 
 ## Layout
 
