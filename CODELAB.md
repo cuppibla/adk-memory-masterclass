@@ -62,11 +62,16 @@ powers both notebooks, and everything below runs with no cloud project or billin
 
 ### 1 · Get a free Gemini API key
 
-👉 Open **[aistudio.google.com/apikey](https://aistudio.google.com/apikey)**, sign in with a
-Google account, and click **Create API key**. It's free and usually starts with `AIza…`
-(~40 characters).
+1. Open **[aistudio.google.com/app/apikey](https://aistudio.google.com/app/apikey)** in a new
+   browser tab and **sign in** with your Google account.
+2. Click **Create API key** (top-right).
+3. In the dialog, choose a project — **select an existing Google Cloud project** and click
+   **Create API key in existing project**, or click **Create project** if you don't have one.
+4. **Copy the key** that appears. It starts with `AIza…` and is ~40 characters.
 
-> 🔒 Treat the key like a password — don't paste it into shared docs or commit it to git.
+> ✏️ **Paste it somewhere safe** — the same key powers both notebooks (and the local setup).
+>
+> 🔒 **Treat it like a password** — don't put it in screenshots or commit it to a public repo.
 
 ### 2 · Open Notebook 1 and give it your key
 
@@ -99,8 +104,16 @@ Skip Secrets and just run the Setup cell — it shows a box:
 `GOOGLE_GENAI_USE_VERTEXAI=False`), then run the **🌿 shared Sage base** cell once — it defines
 Sage's tools and a tiny `say()` helper the rest of the notebook uses.
 
-> ✅ **Checkpoint:** you see the `✅` messages, ADK installed cleanly, and there's no key error.
-> You're ready to climb.
+When Setup finishes you should see, in order:
+
+```
+✅ API key loaded from Colab Secrets.        (or: entered manually)
+✅ API key configured (starts with 'AIza…').
+✅ Using Google AI Studio (not Vertex AI).
+```
+
+> ✅ **Checkpoint:** you see the three `✅` lines above, ADK installed with no errors, and no
+> invalid/missing-key warning. You're ready to climb.
 
 ## L0 · The goldfish 🐟
 Duration: 5:00
